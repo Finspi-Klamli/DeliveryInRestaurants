@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:maps="http://jmix.io/schema/maps/ui"
+        caption="msg://restaurantBrowse.caption"
+        focusComponent="restaurantsTable">
+    <data readOnly="true">
+        <collection id="restaurantsDc"
+                    class="com.company.deliveryinrestaurants.entity.Restaurant">
+            <fetchPlan extends="_base"/>
+            <loader id="restaurantsDl">
+                <query>
+                    <![CDATA[select e from Restaurant e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="deliveryAreaDc"
+                    class="com.company.deliveryinrestaurants.entity.DeliveryArea">
+            <fetchPlan extends="_base"/>
+            <loader id="deliveryAreasDl">
+                <query>
+                    <![CDATA[select d from DeliveryArea d]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="restaurantsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="restaurantsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="restaurantsTable"
+                    width="100%"
+                    dataContainer="restaurantsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="address"/>
+                <column id="location"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="restaurantsTable.create"/>
+                <button id="editBtn" action="restaurantsTable.edit"/>
+                <button id="removeBtn" action="restaurantsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <maps:geoMap id="map" height="400" width="800px" centerX="-97.327194"  centerY="37.681918" zoom="12">
+            <maps:layers>
+                <maps:tile id="title" tileProvider="map_OpenStreetMap"/>
+                <maps:vector id="deliveryAreaLayer" dataContainer="deliveryAreaDc"/>
+                <maps:vector id="restaurantLayer" dataContainer="restaurantsDc"/>
+            </maps:layers>
+        </maps:geoMap>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

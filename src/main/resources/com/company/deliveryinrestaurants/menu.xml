@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://com.company.deliveryinrestaurants/menu.application" insertBefore="administration">
+        <item screen="User.browse" caption="msg://com.company.deliveryinrestaurants.screen.user/UserBrowse.caption"/>
+        <item screen="DeliveryArea.browse"
+              caption="msg://com.company.deliveryinrestaurants.screen.deliveryarea/deliveryAreaBrowse.menu"/>
+        <item screen="Restaurant.browse"
+              caption="msg://com.company.deliveryinrestaurants.screen.restaurant/restaurantBrowse.menu"/>
+        <item screen="Order_.browse" caption="msg://com.company.deliveryinrestaurants.screen.order/orderBrowse.menu"/>
+    </menu>
+
+</menu-config>

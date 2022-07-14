@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:maps="http://jmix.io/schema/maps/ui"
+        caption="msg://restaurantEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="restaurantDc"
+                  class="com.company.deliveryinrestaurants.entity.Restaurant">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+        <collection id="deliveryAreasDc"
+                    class="com.company.deliveryinrestaurants.entity.DeliveryArea">
+            <fetchPlan extends="_base"/>
+            <loader id="deliveryAreasDl">
+                <query>
+                    <![CDATA[select d from DeliveryArea d]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="restaurantsDc"
+                    class="com.company.deliveryinrestaurants.entity.Restaurant">
+            <fetchPlan extends="_base"/>
+            <loader id="restaurantsDl">
+                <query>
+                    <![CDATA[select e from Restaurant e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="restaurantDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <textField id="addressField" property="address"/>
+                <textField id="locationField" property="location"/>
+            </column>
+        </form>
+        <maps:geoMap id="map" height="400px" width="600px" centerX="-97.327194"  centerY="37.681918" zoom="12">
+            <maps:layers selectedLayer="restaurantLayer">
+                <maps:tile id="tileLayer" tileProvider="map_OpenStreetMap"/>
+                <maps:vector id="restaurantLayer"
+                             dataContainer="restaurantDc"
+                             editable="true"/>
+                <maps:vector id="restaurantsLayer" dataContainer="restaurantsDc"/>
+                <maps:vector id="deliveryAreaLayer" dataContainer="deliveryAreasDc"/>
+            </maps:layers>
+        </maps:geoMap>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

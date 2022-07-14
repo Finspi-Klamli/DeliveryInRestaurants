@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:maps="http://jmix.io/schema/maps/ui"
+        caption="msg://orderBrowse.caption"
+        focusComponent="ordersTable">
+    <data readOnly="true">
+        <collection id="ordersDc"
+                    class="com.company.deliveryinrestaurants.entity.Order">
+            <fetchPlan extends="_base"/>
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from Order_ e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="completeOrdersDc"
+                    class="com.company.deliveryinrestaurants.entity.Order">
+            <fetchPlan extends="_base"/>
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from Order_ e where e.executeFlag=false]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="restaurantsDc"
+                    class="com.company.deliveryinrestaurants.entity.Restaurant">
+            <fetchPlan extends="_base"/>
+            <loader id="restaurantsDl">
+                <query>
+                    <![CDATA[select e from Restaurant e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="deliveryAreaDc"
+                    class="com.company.deliveryinrestaurants.entity.DeliveryArea">
+            <fetchPlan extends="_base"/>
+            <loader id="deliveryAreasDl">
+                <query>
+                    <![CDATA[select d from DeliveryArea d]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="ordersTable" spacing="true">
+        <filter id="filter"
+                dataLoader="ordersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="ordersTable"
+                    width="100%"
+                    dataContainer="ordersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="description"/>
+                <column id="address"/>
+                <column id="location"/>
+                <column id="executeFlag"/>
+                <column id="restaurant"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="ordersTable.create"/>
+                <button id="editBtn" action="ordersTable.edit"/>
+                <button id="removeBtn" action="ordersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <maps:geoMap id="map" height="400px" width="600px" centerX="-97.327194"  centerY="37.681918" zoom="12">
+            <maps:layers>
+                <maps:tile id="tileLayer" tileProvider="map_OpenStreetMap"/>
+                <maps:vector id="restaurantLayer" dataContainer="restaurantsDc"/>
+                <maps:vector id="orderLayer" dataContainer="completeOrdersDc"/>
+                <maps:vector id="deliveryAreaLayer" dataContainer="deliveryAreaDc"/>
+            </maps:layers>
+        </maps:geoMap>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
