@@ -49,6 +49,7 @@
                 <textField id="nameField" property="name"/>
                 <textField id="addressField" property="address"/>
                 <textField id="locationField" property="location"/>
+                <entityPicker id="deliveryZoneField" property="deliveryArea"/>
             </column>
         </form>
         <maps:geoMap id="map" height="400px" width="600px" centerX="-97.327194"  centerY="37.681918" zoom="12">
