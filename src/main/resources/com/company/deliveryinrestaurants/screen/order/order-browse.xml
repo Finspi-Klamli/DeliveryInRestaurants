@@ -16,7 +16,7 @@
         <collection id="completeOrdersDc"
                     class="com.company.deliveryinrestaurants.entity.Order">
             <fetchPlan extends="_base"/>
-            <loader id="ordersDl">
+            <loader id="completeOrdersDl">
                 <query>
                     <![CDATA[select e from Order_ e where e.executeFlag=false]]>
                 </query>

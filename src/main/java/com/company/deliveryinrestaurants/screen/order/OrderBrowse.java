@@ -5,6 +5,7 @@ import com.company.deliveryinrestaurants.entity.Restaurant;
 import io.jmix.mapsui.component.layer.style.GeometryStyle;
 import io.jmix.mapsui.component.layer.style.GeometryStyles;
 import io.jmix.ui.icon.JmixIcon;
+import io.jmix.ui.model.CollectionContainer;
 import io.jmix.ui.screen.*;
 import com.company.deliveryinrestaurants.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,14 @@ public class OrderBrowse extends StandardLookup<Order> {
 
     @Autowired
     private GeometryStyles geometryStyles;
+    @Autowired
+    private CollectionContainer<Order> ordersDc;
+
+    @Install(to = "map.orderLayer", subject = "tooltipContentProvider")
+    private String mapOrderLayerTooltipContentProvider(Order order) {
+        System.out.println(ordersDc.getItems());
+        return order.getInstanceName();
+    }
 
     @Install(to = "map.orderLayer", subject = "styleProvider")
     private GeometryStyle setOrderStyleProvider(Order order) {
@@ -23,10 +32,6 @@ public class OrderBrowse extends StandardLookup<Order> {
             return geometryStyles.point()
                     .withFontIcon(JmixIcon.FIRST_ORDER)
                     .setIconPathFillColor("#3455eb");
-        if(order.getExecuteFlag())
-            return geometryStyles.point()
-                    .withFontIcon(JmixIcon.FIRST_ORDER)
-                    .setIconPathFillColor("#050505");
         return geometryStyles.point()
                 .withFontIcon(JmixIcon.FIRST_ORDER)
                 .setIconPathFillColor(String.format("#%s", order.getRestaurant().getDeliveryArea().getColor()));

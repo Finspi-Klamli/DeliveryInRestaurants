@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="insert-into" author="SummerPractise">
+
+        <insert tableName="DELIVERY_AREA">
+            <column name="ID">02ad5abf-20a7-4fde-2306-6154867a2e11</column>
+            <column name="COLOR">920018</column>
+            <column name="POLYGON">POLYGON ((-97.316208 37.676484, -97.314663 37.66113, -97.334747 37.656509, -97.343502 37.665478, -97.34333 37.677027, -97.316208 37.676484))</column>
+        </insert>
+        <insert tableName="DELIVERY_AREA">
+            <column name="ID">204dc4b4-612a-add0-fb85-d4ad8221b36a</column>
+            <column name="COLOR">f8ff4a</column>
+            <column name="POLYGON">POLYGON ((-97.344086 37.668454, -97.347656 37.657053, -97.346764 37.652921, -97.343193 37.649985, -97.329288 37.64985, -97.329803 37.667245, -97.344086 37.668454))</column>
+        </insert>
+        <insert tableName="DELIVERY_AREA">
+            <column name="ID">f980d152-e002-1de0-cd6f-0da0f46662e9</column>
+            <column name="COLOR">ff336b</column>
+            <column name="POLYGON">POLYGON ((-97.309256 37.677163, -97.310371 37.662787, -97.294424 37.663413, -97.29433 37.672673, -97.292948 37.677299, -97.309256 37.677163))</column>
+        </insert>
+
+        <insert tableName="RESTAURANT">
+            <column name="ID">db7e8d92-adc5-8a0f-5140-9a771d696a51</column>
+            <column name="NAME">Coffee Cake</column>
+            <column name="ADDRESS">Wichita, Soup Pattie Street 36</column>
+            <column name="LOCATION">POINT (-97.322216 37.672)</column>
+            <column name="DELIVERY_AREA_ID">02ad5abf-20a7-4fde-2306-6154867a2e11</column>
+        </insert>
+        <insert tableName="RESTAURANT">
+            <column name="ID">8d5b2313-1dfb-58d5-a8a9-2cbea0c7f0ad</column>
+            <column name="NAME">Hot chiken</column>
+            <column name="ADDRESS">Wichita, EastLincoln Street 48</column>
+            <column name="LOCATION">POINT (-97.30203724117021 37.67244183575897)</column>
+            <column name="DELIVERY_AREA_ID">f980d152-e002-1de0-cd6f-0da0f46662e9</column>
+        </insert>
+        <insert tableName="RESTAURANT">
+            <column name="ID">815a2172-4190-46a3-8c81-02197f921135</column>
+            <column name="NAME">Lula kebab</column>
+            <column name="ADDRESS">Wichita, South Topeka Street 148</column>
+            <column name="LOCATION">POINT (-97.33364868268839 37.65966187973891)</column>
+            <column name="DELIVERY_AREA_ID">204dc4b4-612a-add0-fb85-d4ad8221b36a</column>
+        </insert>
+
+        <insert tableName="ORDER_">
+            <column name="ID">3c56a202-0a3f-e22d-8334-504a64fcf6c6</column>
+            <column name="ADDRESS">East Bayley Street</column>
+            <column name="DESCRIPTION">9 naggets</column>
+            <column name="EXECUTE_FLAG">t</column>
+            <column name="LOCATION">POINT (-97.29835510253906 37.67012516666329)</column>
+            <column name="RESTAURANT_ID">8d5b2313-1dfb-58d5-a8a9-2cbea0c7f0ad</column>
+        </insert>
+        <insert tableName="ORDER_">
+            <column name="ID">6ae5704f-38a2-6f73-7c18-a421fa585077</column>
+            <column name="LOCATION">POINT (-97.33539962559009 37.66493447298267)</column>
+            <column name="DESCRIPTION">3 kebab</column>
+            <column name="EXECUTE_FLAG">f</column>
+            <column name="ADDRESS">East Boston Street 12</column>
+            <column name="RESTAURANT_ID">815a2172-4190-46a3-8c81-02197f921135</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
